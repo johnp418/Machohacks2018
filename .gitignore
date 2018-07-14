@@ -9,8 +9,6 @@
 # production
 /build
 
-WorkChain.json
-
 # misc
 .DS_Store
 .env.local

@@ -58,17 +58,16 @@ contract WorkChain {
         personalProfileMap[id] = newPersonalProfile;
     }
     
-    function addWorkExperience(address personId, address companyId, string title, string description,
-        string startDate, string endDate) public {
-            WorkExperience memory experience = WorkExperience({
-                employer: companyId,
-                title: title,
-                description: description,
-                startDate: startDate,
-                endDate: endDate
-            });
-            
-            // TODO: Validate
-            workExperienceMap[personId].push(experience);
-        }
+    function addWorkExperience(address personId, address companyId, string title, string description, string startDate, string endDate) public {
+        WorkExperience memory experience = WorkExperience({
+            employer: companyId,
+            title: title,
+            description: description,
+            startDate: startDate,
+            endDate: endDate
+        });
+        
+        // TODO: Validate
+        workExperienceMap[personId].push(experience);
+    }
 }

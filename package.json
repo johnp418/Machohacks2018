@@ -17,7 +17,8 @@
     "test": "react-scripts test --env=jsdom",
     "test-mocha": "mocha",
     "eject": "react-scripts eject",
-    "deploy": "node ./src/ethereum/compile && node ./src/ethereum/deploy"
+    "compile": "node ./src/ethereum/compile",
+    "deploy": "node ./src/ethereum/deploy"
   },
   "devDependencies": {
     "solc": "^0.4.24"
