@@ -8,13 +8,18 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
-    "web3": "^1.0.0-beta.26"
+    "truffle-hdwallet-provider": "0.0.3",
+    "web3": "^1.0.0-beta.34"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "test-mocha": "mocha",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "node ./src/ethereum/compile && node ./src/ethereum/deploy"
+  },
+  "devDependencies": {
+    "solc": "^0.4.24"
   }
 }
