@@ -14,7 +14,7 @@ beforeEach(async () => {
     .deploy({
       data: bytecode
     })
-    .send({ from: accounts[0], gas: "1000000" });
+    .send({ from: accounts[0], gas: "3000000" });
 });
 
 describe("WorkChain", () => {
@@ -43,16 +43,35 @@ describe("WorkChain", () => {
 
   //addWorkExperience function
   it("Add work experience and employer informations", async () => {
+    const companyId = accounts[1];
     const acc = accounts[0];
     await workChain.methods
       //create dummy companyProfile
       .addWorkExperience(
-        acc,
+        acc, // employee
+        companyId, // employer
         "Web Developer",
         "Senior Developer",
         "2015",
         "2018"
       )
-      .send({ from: accounts[0] });
+      .send({ from: accounts[0], gas: "1000000" });
+
+    const pendingRequestCount = await workChain.methods
+      .getCompanyPendingRequestCount(companyId)
+      .call();
+
+    // console.log("Pending Request Count ", pendingRequestCount);
+
+    assert.equal(pendingRequestCount, 1);
+
+    // This function returns object with keys as number
+    const workExperienceReq = await workChain.methods
+      .getCompanyPendingRequestByIndex(companyId, 0)
+      .call();
+
+    assert.equal(workExperienceReq[0], acc);
+    assert.equal(workExperienceReq[1], companyId);
+    assert.equal(workExperienceReq[2], "Web Developer");
   });
 });

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Landing from "./components/Landing";
 import "./App.css";
 
 import Web3 from "web3";
@@ -23,7 +24,7 @@ class App extends Component {
   }
 
   render() {
-    return <div className="App" />;
+    return <Landing />;
   }
 }
 
