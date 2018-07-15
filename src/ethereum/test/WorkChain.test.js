@@ -34,25 +34,25 @@ describe("WorkChain", () => {
     const companies = await workChain.methods.getCompanies().call();
     assert.equal(companies.length, 1);
     //check companyProfiles
-    const companyProfile = await workChain.methods.getCompanyProfile().call();
-    assert.equal(companyProfile, acc, "Amazon");
+    const companyProfile = await workChain.methods
+      .getCompanyProfile(acc)
+      .call();
+    // console.log(companyProfile);
+    assert.equal(companyProfile[0], acc);
   });
 
   //addWorkExperience function
-  //   it("Add work experience and employer informations", async () => {
-  //     const acc = accounts[0];
-  //     await workChain.methods
-  //       //create dummy companyProfile
-  //       .addWorkExperience(
-  //         acc,
-  //         1,
-  //         "Web Developer",
-  //         "Senior Developer",
-  //         "2015",
-  //         "2018"
-  //       )
-  //       .send({ from: accounts[0] });
-  //     const companyProfile = await workChain.methods.addWorkExperience().call();
-  //     assert.equal(1, 1, "Web Developer", "Senior Developer", "2015", "2018");
-  //   });
+  it("Add work experience and employer informations", async () => {
+    const acc = accounts[0];
+    await workChain.methods
+      //create dummy companyProfile
+      .addWorkExperience(
+        acc,
+        "Web Developer",
+        "Senior Developer",
+        "2015",
+        "2018"
+      )
+      .send({ from: accounts[0] });
+  });
 });

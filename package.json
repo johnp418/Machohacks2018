@@ -15,7 +15,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "test-mocha": "mocha ./src/ethereum/test/",
+    "test-mocha": "mocha -w ./src/ethereum/test/",
     "eject": "react-scripts eject",
     "compile": "node ./src/ethereum/compile",
     "deploy": "node ./src/ethereum/deploy"
