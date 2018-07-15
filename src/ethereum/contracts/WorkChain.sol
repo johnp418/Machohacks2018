@@ -8,6 +8,7 @@ contract WorkChain {
     }
     
     struct WorkExperience {
+        address employee;
         address employer;
         string title;
         string description;
@@ -20,11 +21,19 @@ contract WorkChain {
     }
     
     address[] public companies;
-    mapping(address => CompanyProfile) companyProfileMap;
+    mapping(address => CompanyProfile) public companyProfileMap;
     
-    mapping(address => PersonalProfile) personalProfileMap;
+    mapping(address => PersonalProfile) public personalProfileMap;
     
-    mapping(address => WorkExperience[]) workExperienceMap;
+    mapping(address => WorkExperience[]) public workExperienceMap;
+    
+    
+    
+    // ADDED
+    
+    // Keeps track of every requests made to each company
+    mapping(address => WorkExperience[]) public pendingRequests;
+    
 
     constructor() public {
 
@@ -35,7 +44,17 @@ contract WorkChain {
     }
     
     function getCompanyProfile(address id) public view returns (address, string) {
+        // TODO: Check if exists in map
         return (companyProfileMap[id].id, companyProfileMap[id].name);
+    }
+    
+    function getEmployeeWorkExperienceCount (address employee) public view returns (uint) {
+        return workExperienceMap[employee].length;
+    }
+    
+    function getEmployeeWorkExperienceByIndex(address employee, uint index) public view returns(address, string, string, string, string) {
+        WorkExperience memory req = workExperienceMap[employee][index];
+        return (req.employer, req.title, req.description, req.startDate, req.endDate);
     }
     
     // function getPersonalProfile(address id)  public view returns (address, string) {
@@ -60,6 +79,7 @@ contract WorkChain {
     
     function addWorkExperience(address personId, address companyId, string title, string description, string startDate, string endDate) public {
         WorkExperience memory experience = WorkExperience({
+            employee: personId,
             employer: companyId,
             title: title,
             description: description,
@@ -67,7 +87,26 @@ contract WorkChain {
             endDate: endDate
         });
         
-        // TODO: Validate
-        workExperienceMap[personId].push(experience);
+        pendingRequests[companyId].push(experience);
+    }
+    
+    
+    function getCompanyPendingRequestCount(address companyId) public view returns(uint) {
+        return pendingRequests[companyId].length;
+    }
+    
+    function getCompanyPendingRequestByIndex(address companyId, uint index) public view returns (address, address, string, string, string, string) {
+        WorkExperience[] memory _pendingRequests = pendingRequests[companyId];
+        WorkExperience memory req = _pendingRequests[index];
+        return (req.employee, req.employer, req.title, req.description, req.startDate, req.endDate);
+    }
+    
+    function verify(address companyId, uint requestIndex) public {
+        require(msg.sender == companyId);
+        
+        WorkExperience memory req = pendingRequests[companyId][requestIndex];
+        
+        // Adds request to person's work history
+        workExperienceMap[req.employee].push(req);
     }
 }
