@@ -1,14 +1,18 @@
 import Web3 from "web3";
 import WorkChain from "./ethereum/build/WorkChain.json";
 
-const CONTRACT_ADDRESS = "0x6431fd0c29d024c5b04c7dab157fccd329e62e55";
+const ganache = require("ganache-core");
 
-const web3 = new Web3(window.web3.currentProvider);
+const CONTRACT_ADDRESS = "0x39C070Ee5D57c0521f1Be53749c8D1024DD3b55a";
+
+const web3 = new Web3(ganache.provider());
+// const web3 = new Web3(window.web3.currentProvider);
 
 const workChain = new web3.eth.Contract(
-    JSON.parse(WorkChain.interface),
-    // Deployed contract address
-    CONTRACT_ADDRESS
-  );
+  JSON.parse(WorkChain.interface),
+  // Deployed contract address
+  CONTRACT_ADDRESS
+);
+const accounts = 2;
 
-export default workChain;
+export { workChain, accounts };

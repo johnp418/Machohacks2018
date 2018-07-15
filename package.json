@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "ganache-cli": "^6.1.6",
+    "ganache-core": "^2.1.5",
     "mocha": "^5.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -18,7 +19,8 @@
     "test-mocha": "mocha ./src/ethereum/test/",
     "eject": "react-scripts eject",
     "compile": "node ./src/ethereum/compile",
-    "deploy": "node ./src/ethereum/deploy"
+    "deploy": "node ./src/ethereum/deploy",
+    "testDeploy": "node ./src/ethereum/testDeploy"
   },
   "devDependencies": {
     "solc": "^0.4.24"
