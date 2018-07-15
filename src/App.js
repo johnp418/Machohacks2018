@@ -4,16 +4,11 @@ import "./App.css";
 import Web3 from "web3";
 import WorkChain from "./ethereum/build/WorkChain.json";
 import Search from "./components/Search";
+import CompanySection from "./views/Company";
+import PersonSection from "./views/Employee";
+import EmployeeDetail from "./views/EmployeeDetail";
 
 const CONTRACT_ADDRESS = "0xCeCAF22e553AB21f60D33108F96f51788C3E6E20";
-
-const CompanyPage = ({ match }) => {
-  const {
-    params: { companyId }
-  } = match;
-  console.log("Match ", match);
-  return <div>Company ({companyId}) page</div>;
-};
 
 class App extends Component {
   render() {
@@ -21,8 +16,10 @@ class App extends Component {
       <div className="App">
         <BrowserRouter>
           <div>
-            <Route path="/" component={Search} />
-            <Route path="/:companyId" component={CompanyPage} />
+            <Route exact path="/" component={Search} />
+            <Route path="/company/:companyId" component={CompanySection} />
+            <Route exact path="/person" component={PersonSection} />
+            <Route exact path="/person/:personId" component={EmployeeDetail} />
           </div>
         </BrowserRouter>
       </div>

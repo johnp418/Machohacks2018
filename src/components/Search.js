@@ -28,9 +28,6 @@ class search extends Component {
     console.log("Accounts ", accounts);
 
     const companyIds = await workChain.methods.getCompanies().call();
-    const [id] = companyIds;
-    companyIds.push(id);
-    companyIds.push(id);
 
     this.setState({ companyIds });
 
@@ -61,7 +58,6 @@ class search extends Component {
     e.preventDefault();
     if (this.state.searchOption === "Company") {
       // DO COMPANY SEARCH
-
       const promises = [];
 
       this.state.companyIds.map(companyId => {
@@ -108,7 +104,7 @@ class search extends Component {
                   <CompanyProfile
                     key={`profile-${index}`}
                     onCompanyClick={id => {
-                      this.props.history.push(`/${id}`);
+                      this.props.history.push(`/company/${id}`);
                     }}
                     profile={profile}
                   />
